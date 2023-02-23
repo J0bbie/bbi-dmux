@@ -1,0 +1,22 @@
+name: sexomics_nf
+channels:
+  - conda
+  - conda-forge
+  - bioconda
+  - anaconda
+dependencies:
+  - nextflow>=0.30.1
+  - bcl2fastq-nextseq==1.3.0
+  - pypy3.9==7.3.11
+  - biopython==1.78
+  - proj==9.1.1
+  - gdal
+  - fmt
+  - matplotlib
+  - libgcc-ng
+  - pcre2
+  - scipy
+  - pigz
+  - zlib
+  - hdf5
+  - numpy

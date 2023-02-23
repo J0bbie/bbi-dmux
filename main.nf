@@ -31,16 +31,6 @@ checkNextflowVersion( minMajorVersion, minMinorVersion )
 pipeline_path="$workflow.projectDir"
 script_dir="${pipeline_path}/bin"
 
-
-/*
-** Check OS version.
-** Notes:
-**   o  works only for Linux systems
-**   o  used to distinguish between CentOS 6 and CentOS 7
-*/
-( osName, osDistribution, osRelease ) = getOSInfo()
-
-
 // Parse input parameters
 params.help = false
 params.rerun = false
@@ -414,35 +404,3 @@ def checkNextflowVersion( Integer minMajorVersion, Integer minMinorVersion )
   }
   return( 0 )
 }
-
-
-/*
-** getOSInfo()
-**
-** Purpose: get information about the operating system.
-**
-** Returns:
-**    list of strings with OS name, OS distribution, OS distribution release
-**
-** Notes:
-**   o  limited to Linux operating systems at this time
-*/
-def getOSInfo()
-{
-  def osName = System.properties['os.name']
-  def osDistribution
-  def osRelease
-  if( osName == 'Linux' )
-  {
-    def proc
-    proc = "lsb_release -a".execute() | ['awk', 'BEGIN{FS=":"}{if($1=="Distributor ID"){print($2)}}'].execute()
-    proc.waitFor()
-    osDistribution = proc.text.trim()
-    proc = "lsb_release -a".execute() | ['awk', 'BEGIN{FS=":"}{if($1=="Release"){print($2)}}'].execute()
-    proc.waitFor()
-    osRelease = proc.text.trim()
-  }
-  return( [ osName, osDistribution, osRelease ] )
-}
-
-

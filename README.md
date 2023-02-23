@@ -1,143 +1,34 @@
 # bbi-dmux
 
+# Installation.
+
+## Set-up conda env.
+
+The pipeline will be performed within a conda environment which will handle most of the dependencies:
+`micromamba create -f environment.yml`
+
+We can now activate this conda environment with:
+`micromamba activate sexomics_nf`
+
+In addition, the following python packages need to be installed manually within this environment:
+```
+pip install --user pysam
+pip install --user scrublet
+pip install git+https://github.com/andrewhill157/barcodeutils#egg=barcodeutils
+pypy3 -m pip install Bio --user
+```
+
 ## Intro
 This pipeline is the under-construction pipe for processing 2-level and 3-level data. It uses the pipeline management system Nextflow to operate.
 
 The pipeline is run in two parts, the first is [bbi-dmux](https://github.com/bbi-lab/bbi-dmux) which runs the demultiplexing, and the second is [bbi-sci](https://github.com/bbi-lab/bbi-sci/) which completes the preprocessing. The instructions below apply to both pipelines, and both pipelines can use the same configuration file.
 
-## Prerequisites
-1. This script requires Nextflow version >= 20.07.1.
 
-2. As the Nextflow pipeline is run interactively, please use a terminal multiplexer such as tmux. tmux sessions are persistent which means that programs in tmux will continue to run even if you get disconnected. You can start a tmux session by using:
+## Run pipeline.
 
-```
-module load tmux/2.9a
-tmux
-```
+Run the program:
+`nextflow run -profile dkfz .`
 
-If you get disconnected, you can return to the head node you were using (grid-head1 or grid-head2) and type:
-
-```
-tmux attach
-```
-
-which will return you to your session. See a handy tmux tutorial [here](https://www.hostinger.com/tutorials/tmux-beginners-guide-and-cheat-sheet/).
-
-3. Always start with a qlogin session before you begin the pipeline. This can be done using
-
-```
-qlogin -l mfree=16G
-```
-
-## Installation
-
-
-If you install the pipeline on a cluster with a mix of CPU architectures,
-then when you qlogin to the cluster for the installation procedure,
-request a node with the minimum CPU ID level on which you intend to run the pipeline.
-For example, on the Shendure lab cluster use
-
-```
-qlogin -l mfree=20G -l cpuid_level=11
-```
-
-Omit `-l cpuid_level` when running the pipeline.
-
-### modules
-After starting a qlogin session:
-
-First, you need to have python available. You should have version 3.7.7 in order to have nextflow work for you. Please make sure that this is the version you load in your ~/.bashrc file as this is the version that you will use to install the packages below. For example, in your ~/.bashrc file have:
-
-```
-module load python/3.7.7
-```
-
-You must also have a few modules other than python loaded:
-
-```
-module load git/2.18.0
-```
-
-After loading the above modules, you must install the following python packages:
-
-```
-pip install --user biopython
-pip install --user fmt
-pip install --user pysam
-pip install --user matplotlib
-
-git clone https://github.com/andrewhill157/barcodeutils.git
-pushd barcodeutils
-python setup.py install --user
-popd
-```
-
-Then, install the required pypy3 packages by running the script
-
-```
-module load pypy/3.9-7.3.9
-pypy3 -m pip install Bio --user
-```
-
-and install monocle3 and garnett by running:
-
-```
-module load gcc/8.1.0
-module load proj/4.9.3
-module load gdal/2.4.1
-module load pcre2/10.35
-module load R/4.0.0
-R
-```
-Then from within R, follow the installation instructions on the [monocle3 website](https://cole-trapnell-lab.github.io/monocle3/).
-And the instructions for garnett on the [Garnett website](https://cole-trapnell-lab.github.io/garnett/docs_m3/#install-from-github).
-
-You will also require scrublet, a tool used to detect doublets in single-cell RNA-seq data. You can install it from source by running:
-
-```
-git clone https://github.com/AllonKleinLab/scrublet.git
-pushd scrublet
-pip install -r requirements.txt --user
-python setup.py install --user
-popd
-```
-
-Please note: If you are doing a hashing experiment, you will also need to install scipy in order to run the pipeline successfully. You can do this by running:
-
-```
-pip install --user scipy
-```
-
-Once monocle3 and scrublet are installed, install nextflow by typing:
-
-```
-curl -s https://get.nextflow.io | bash
-```
-You probably also want to add Nextflow to your path so you can access it from anywhere. Do this by adding the following to your .bashrc file (located in your home directory).
-
-```
-export PATH=/path/to/whereever/you/downloaded/:$PATH
-```
-
-Next, pull the pipeline to make sure you're on the latest version
-
-```
-nextflow pull bbi-lab/bbi-dmux
-nextflow pull bbi-lab/bbi-sci
-```
-
-Check that it all worked by running:
-
-```
-nextflow run bbi-dmux --help
-nextflow run bbi-sci --help
-```
-
-You should get some help info printed.
-
-## Running the pipeline
-
-To run the pipeline you need two files, a sample sheet and a configuration file.
 
 #### Sample sheet:
 The sample sheet should be a csv with 3 columns: RT Barcode, Sample ID, and Reference Genome. Here's an example:
