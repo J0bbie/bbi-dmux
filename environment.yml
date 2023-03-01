@@ -4,19 +4,33 @@ channels:
   - conda-forge
   - bioconda
   - anaconda
+  - dranew
 dependencies:
+  # Binary dependencies.
   - nextflow>=0.30.1
-  - bcl2fastq-nextseq==1.3.0
+  - bcl2fastq
+  - pigz
+  - star
+
+  # Python and modules.
   - pypy3.9==7.3.11
   - biopython==1.78
+  - matplotlib
+  - scipy
+  - hdf5
+
+  # R and libraries
+  - r-base>=4.2.2
+  - r-ggplot2
+  - r-argparse
+  - r-jsonlite
+  - r-shiny
+  - r-stringr
+
+  # C/Make dependencies.
   - proj==9.1.1
   - gdal
   - fmt
-  - matplotlib
   - libgcc-ng
   - pcre2
-  - scipy
-  - pigz
   - zlib
-  - hdf5
-  - numpy

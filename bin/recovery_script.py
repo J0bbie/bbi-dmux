@@ -576,6 +576,3 @@ if __name__ == '__main__':
         x = make_undetermined_dict_3lvl(args.input_file, args.output_file)
     else:
         x = make_undetermined_dict_2lvl(args.input_file, args.output_file)
-
-
-
