@@ -6,11 +6,17 @@ channels:
   - anaconda
   - dranew
 dependencies:
-  # Binary dependencies.
+  # Binary dependencies / tools.
   - nextflow>=0.30.1
   - bcl2fastq
   - pigz
   - star
+  - trim-galore
+  - cutadapt
+  - samtools
+  - bedtools
+  - bamtools
+  - datamash
 
   # Python and modules.
   - pypy3.9==7.3.11
@@ -18,6 +24,7 @@ dependencies:
   - matplotlib
   - scipy
   - hdf5
+  - pysam
 
   # R and libraries
   - r-base>=4.2.2
@@ -26,6 +33,9 @@ dependencies:
   - r-jsonlite
   - r-shiny
   - r-stringr
+  - r-terra
+  - r-monocle3
+  - scrublet
 
   # C/Make dependencies.
   - proj==9.1.1
@@ -34,3 +44,4 @@ dependencies:
   - libgcc-ng
   - pcre2
   - zlib
+  - openssl

@@ -18,11 +18,13 @@ We can now activate this conda environment with:
 In addition, the following python packages need to be installed manually within this environment:
 
 ```bash
-pip install --user pysam
 pip install --user scrublet
 pip install git+https://github.com/andrewhill157/barcodeutils#egg=barcodeutils
 pypy3 -m pip install Bio --user
 ```
+
+For pysam on DKFZ, cp the libcrypto dependency:
+`cp /usr/lib64/libcrypto.so /omics/groups/OE0606/internal/jvanriet/envs/sexomics_nf/lib/python3.9/site-packages/pysam/libcrypto.so.1.0.0`
 
 ## Default run of pipeline
 
