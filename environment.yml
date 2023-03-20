@@ -1,47 +1,44 @@
 name: sexomics_nf
 channels:
-  - conda
   - conda-forge
   - bioconda
-  - anaconda
-  - dranew
+
 dependencies:
   # Binary dependencies / tools.
-  - nextflow>=0.30.1
-  - bcl2fastq
-  - pigz
-  - star
-  - trim-galore
-  - cutadapt
-  - samtools
-  - bedtools
-  - bamtools
-  - datamash
+  - bioconda::nextflow
+  - dranew::bcl2fastq
+  - conda-forge::pigz
+  - bioconda::star
+  - bioconda::trim-galore
+  - bioconda::cutadapt>=4.2
+  - bioconda::samtools
+  - bioconda::bedtools
+  - bioconda::bamtools
+  - conda-forge::datamash
 
   # Python and modules.
-  - pypy3.9==7.3.11
-  - biopython==1.78
-  - matplotlib
-  - scipy
-  - hdf5
-  - pysam
+  - conda-forge::python>=3.0.0
+#  - conda-forge::pypy
+  - conda-forge::biopython
+  - conda-forge::matplotlib
+  - conda-forge::scipy
+  - conda-forge::hdf5
+  - bioconda::pysam
 
   # R and libraries
-  - r-base>=4.2.2
-  - r-ggplot2
-  - r-argparse
-  - r-jsonlite
-  - r-shiny
-  - r-stringr
-  - r-terra
-  - r-monocle3
-  - scrublet
+  - conda-forge::r-base>=4.1.0
+  - conda-forge::r-ggplot2
+  - conda-forge::r-argparse
+  - conda-forge::r-jsonlite
+  - conda-forge::r-shiny
+  - conda-forge::r-stringr
+  - conda-forge::r-terra>=1.7_18
+  - bioconda::r-monocle3
+  - bioconda::scrublet
+  - conda-forge::numba
 
   # C/Make dependencies.
-  - proj==9.1.1
-  - gdal
-  - fmt
-  - libgcc-ng
-  - pcre2
-  - zlib
-  - openssl
+  - conda-forge::proj
+  - conda-forge::fmt
+  - conda-forge::libgcc-ng
+  - conda-forge::pcre2
